@@ -1,14 +1,11 @@
 package com.jack.applicationInit;
 
-import com.jack.RpcRequest;
-
-import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Mediator {
 
-    public static Map<String, BeanInfo> map = new ConcurrentHashMap<>();
+    public Map<String, BeanInfo> map = new ConcurrentHashMap<>();
 
     private Mediator() {
     }
@@ -28,26 +25,12 @@ public class Mediator {
         return instance;
     }
 
-    public Object processor(RpcRequest request) {
-        try {
-            //接口名.方法名
-            String key = request.getClassName() + "." + request.getMethodName();
-            //取出方法
-            BeanInfo beanInfo = map.get(key);
-            if (beanInfo == null) {
-                return null;
-            }
-            //bean对象
-            Object bean = beanInfo.getBean();
-            //方法
-            Method method = beanInfo.getMethod();
-            //反射
-            return method.invoke(bean, request.getArgs());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    public Map<String, BeanInfo> getMap() {
+        return map;
+    }
 
+    public void put(String key, BeanInfo beanInfo) {
+        map.put(key, beanInfo);
     }
 
 }

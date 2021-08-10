@@ -25,7 +25,7 @@ public class InitialMerdiator implements BeanPostProcessor {
                 BeanInfo beanInfo = new BeanInfo();
                 beanInfo.setBean(bean);
                 beanInfo.setMethod(method);
-                Mediator.map.put(key, beanInfo);
+                Mediator.getInstance().put(key, beanInfo);
             }
         }
         return bean;
